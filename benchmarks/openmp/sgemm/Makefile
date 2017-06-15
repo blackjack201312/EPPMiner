@@ -1,6 +1,6 @@
 # C Compiler
 CC = icpc
-CC_FLAGS = -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lrt -lpthread -qopenmp
+CC_FLAGS = -O3 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lrt -lpthread -qopenmp
 CC_LINK = -I../../common/include
 OBJS = io.o sgemm_kernel.o main.o 
 

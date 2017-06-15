@@ -25,13 +25,20 @@ extern void basicSgemm( char transa, char transb, int m, int n, int k, float alp
 extern bool readColMajorMatrixFile(const char *fn, int &nr_row, int &nr_col, std::vector<float>&v);
 extern bool writeColMajorMatrixFile(const char *fn, int, int, std::vector<float>&);
 
+double gettime(){
+    struct timeval t;
+    gettimeofday(&t, NULL);
+    return t.tv_sec + t.tv_usec * 1e-6;
+}
+		     
+
 int
 main (int argc, char *argv[]) {
 
 
   int matArow, matAcol;
   int matBrow, matBcol;
-  std::vector<float> matA, matBT;
+  std::vector<float> matAT, matB;
 
 
   /* Read command line. Expect 3 inputs: A, B and B^T 
@@ -46,22 +53,28 @@ main (int argc, char *argv[]) {
     }
  
 
-  // load A
+  // load A^T
   readColMajorMatrixFile(argv[1],
-      matArow, matAcol, matA);
+      matAcol, matArow, matAT);
 
-  // load B^T
+  // load B
   readColMajorMatrixFile(argv[3],
-      matBcol, matBrow, matBT);
+      matBrow, matBcol, matB);
 
 
   // allocate space for C
   std::vector<float> matC(matArow*matBcol);
 
+  double start = gettime();
+  for (int i = 0;i<20;i++){
   // Use standard sgemm interface
-  basicSgemm('N', 'T', matArow, matBcol, matAcol, 1.0f,
-      &matA.front(), matArow, &matBT.front(), matBcol, 0.0f, &matC.front(),
+  basicSgemm('T', 'N', matArow, matBcol, matAcol, 1.0f,
+      &matAT.front(), matArow, &matB.front(), matBcol, 0.0f, &matC.front(),
       matArow);
+  }
+  double end = gettime();
+  printf("The total time is %lf seconds.\n", end - start);
+
 
   if (argv[4]) {
     /* Write C to file */

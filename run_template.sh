@@ -20,9 +20,9 @@ PW_SAMPLE_INT=500
 PW_SAMPLE_SECS=5
 
 # start power sampling
-echo Now come to $tool...
-echo start amd power sampling...
-export SI=$PW_SAMPLE_INT; export SD=$PW_SAMPLE_SECS; export OUTFILE=$LOG_PATH/benchmark_${tool}_${platform}_${dev}_${workload}_pw.log; nohup sh $TOOL_PATH/act_${dev}_pw_sampling.sh 1>/dev/null 2>&1 &
+# echo Now come to $tool...
+# echo start amd power sampling...
+# export SI=$PW_SAMPLE_INT; export SD=$PW_SAMPLE_SECS; export OUTFILE=$LOG_PATH/benchmark_${tool}_${platform}_${dev}_${workload}_pw.log; nohup sh $TOOL_PATH/act_${dev}_pw_sampling.sh 1>/dev/null 2>&1 &
 
 # compiling
 cd $toolpath
@@ -43,7 +43,7 @@ echo sleep $SLEEP_SECS seconds...
 sleep $SLEEP_SECS
 
 # kill power sampling
-cd $CWD
-echo "stop amd power sampling..."
-sh $TOOL_PATH/kill_${dev}_pw_sampling.sh
+# cd $CWD
+# echo "stop amd power sampling..."
+# sh $TOOL_PATH/kill_${dev}_pw_sampling.sh
 
